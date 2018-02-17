@@ -1,18 +1,30 @@
 #! /bin/bash
+# shnote by Philippe Benoist
+# www.shantee.com
+################################################################################
 
-## parametres ##
+## a couple of parameters you could change according to you needs
+# the name of your favorite text editor
 takenotewith="nano"
-# notes will be saved here
-notesdir="/home/noone/.shnote"
-#extension des fichiers
+# path of the directory in which your notes will be saved
+# no trailing slash at the end
+notesdir="$HOME/.shnote"
+
+################################################################################
+
+echo $notesdir
 extension=$RANDOM$RANDOM
+titre=$*
+titreredui=$(echo $* | cut -c 1-18)
+nomfichier=$(echo "${titreredui// /-}").$extension
+cheminfichier=$notesdir/$nomfichier
 
 cd $notesdir
 if [ "$1" == "--list" ]; then
   clear
   cat $(ls -tpar | grep -v /) | fold -w 80
   echo -e "\n"
-  exit 1
+  exit 1;
 fi
 if [ "$1" == "--help" ]; then
   cat << EOF
@@ -20,27 +32,25 @@ if [ "$1" == "--help" ]; then
   Usage : note [MY NOTE TITLE]
 
   options:
-    --help display this help
-    --list list all saved notesdir
-EOF
-exit;
+    --help : display this help
+    --list : list all saved notes
+  EOF
+exit 1;
 fi
-TITRE=$*
-Snomfichier=$(echo $* | cut -c 1-18)
-nomfichier=$(echo "${Snomfichier// /-}").$extension
-cheminfichier=$notesdir/$nomfichier
+
 echo -e "\n new note : "$cheminfichier
 touch $cheminfichier
+
+## functions
 ligne(){
   for i in {1..80}; do echo -n ${1}>>$nomfichier; done
 }
 
 echo -e "\n"
 ligne "="
-echo -e "\n $TITRE" >> $cheminfichier
+echo -e "\n $titre" >> $cheminfichier
 echo -e "\n Date : $(date +%d-%B-%y)" >> $cheminfichier
 ligne "="
-
 
 echo -e "\n\n\n\n\n\n" >> $cheminfichier
 ligne "."
@@ -48,7 +58,7 @@ echo -e "\nTags :" >> $cheminfichier
 ligne "."
 echo -e "\n" >> $cheminfichier
 
-$takenotewith -nmw --clear-window-state $cheminfichier
+$takenotewith  $cheminfichier #atom -nmw --clear-window-state
 cat << EOF
 
                     OK!
