@@ -40,12 +40,8 @@ do_help(){
   echo -e "\noptions:\n\t --help : display this help\n\t --list : list all saved notes\n"
 }
 
-
 do_note(){
-  if [ -z "$1"];  then
-    echo "No argument supplied"
-  else
-    cd $notesdir
+  cd $notesdir
     echo -e "\n new note : "$cheminfichier
     touch $cheminfichier
     ligne "="
@@ -74,13 +70,14 @@ cat << EOF
                 |    ||  |     |  |
                 \____||__|_____|__|
 EOF
-  fi
 }
 case "$1" in
  --list) do_list
  ;;
  --help) do_help
  exit 1;
+ ;;
+ "") do_help
  ;;
  *) do_note
  ;;
