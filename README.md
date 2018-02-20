@@ -4,6 +4,9 @@ Shnote is a bash script I made because I needed a efficient way to take notes fr
 
 It is a simple command line tool to take notes.
 
+![taking notes  from command line](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+
+
 
 # Installation
 
