@@ -5,7 +5,7 @@
 
 ## a couple of parameters you could change according to your needs
 #the name of your favorite text editor
-takenotewith="nano"
+takenotewith="atom"
 #path of the directory in which your notes will be saved
 #no trailing slash at the end
 notesdir="$HOME/.shnote"
@@ -54,8 +54,13 @@ do_note(){
     echo -e "\nTags :" >> $cheminfichier
     ligne "."
     echo -e "\n" >> $cheminfichier
-#atom -nmw --clear-window-state
-    $takenotewith  $cheminfichier
+# tips : if you want to use atom to edit your notes you can use this command  followed by
+# $cheminfichier :
+if [ "$takenotewith" = "atom" ]; then
+  atom -nmw --clear-window-state $cheminfichier
+else
+    $takenotewith
+fi
 cat << EOF
 
                         OK!
