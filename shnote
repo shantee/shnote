@@ -25,19 +25,22 @@ ligne(){
   for i in {1..80}; do echo -n ${1}>>$nomfichier; done
 }
 countfiles(){
-  ls -1q * | wc -l
+  cd $notesdir
+  ls -1q | wc -l
 }
 do_list(){
-  cd $notesdir
-  clear
-  cat $(ls -tpar | grep -v /) | fold -w 80
-  echo -e "\n"
-  exit 1;
+  numfile=$(countfiles)
+ if [[ $numfile != 0 ]] ; then cd $notesdir; clear; cat $(ls | grep -v /) | fold -w 80; echo -e "\n";  exit 1; fi
+}
+show_howmany(){
+  numfile=$(countfiles)
+  echo $numfile" note(s) in "$notesdir
+
 }
 do_help(){
   echo -e "shnote v1.0 : Take note from the terminal\n"
   echo -e "Usage : note [MY NOTE TITLE]\n"
-  echo -e "\noptions:\n\t --help : display this help\n\t --list : list all saved notes\n"
+  echo -e "\noptions:\n\t --help : display this help\n\t --list : list all saved notes\n\t --count : count all saved notes \n"
 }
 
 do_note(){
@@ -75,12 +78,15 @@ cat << EOF
                 |    ||  |     |  |
                 \____||__|_____|__|
 EOF
+echo -e "\n"
 }
 case "$1" in
  --list) do_list
  ;;
  --help) do_help
  exit 1;
+ ;;
+ --count) show_howmany
  ;;
  "") do_help
  ;;
