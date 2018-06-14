@@ -52,10 +52,10 @@ do_csv() {
   sed -i s/"Date :"/" | "/g shnote-$extension.csv &&
   sed -i s/"________________________________________________________________________________"/" | "/g shnote-$extension.csv &&
   sed -i s/"................................................................................"/" | "/g shnote-$extension.csv &&
-  sed -i s/"Tags :"/" tag 12384651t"/g shnote-$extension.csv &&
+  sed -i '/Tags .*/a 12384651t' shnote-$extension.csv &&
   sed -i ':a;N;$!ba;s/\n/ /g' shnote-$extension.csv &&
-  sed -i s/"12384651t"/"\n"/g shnote-$extension.csv &&
-  sed -i s/"Title | Date |Â Text | Tags"/"Title | Date |Â Text | Tags \n"/g shnote-$extension.csv
+  sed -i s/"12384651t"/"  \n"/g shnote-$extension.csv &&
+  sed -i s/"Title | Date | Text | Tags"/"Title | Date | Text | Tags \n"/g shnote-$extension.csv
   mv shnote-$extension.csv ~/shnote-$extension.csv
    echo -e "\n\t All your notes have been saved to $HOME in a CSV file shnote-$extension.csv\n"
 }
