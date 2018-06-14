@@ -37,6 +37,6 @@ show how many notes have been saved
     - Complete this README.md
     - Add a function to create a backup of the notes
     - Add a way to delete some note or all of them
-    - Add the possibility to export notes in CSV
+    - ~~Add the possibility to export notes in CSV~~
     - Add a search function
     - Make it possible to ass tags via the command line (alone with the note title)
