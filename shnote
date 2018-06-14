@@ -59,11 +59,24 @@ do_note(){
     echo -e "\n" >> $cheminfichier
 # tips : if you want to use atom to edit your notes you can use this command  followed by
 # $cheminfichier :
+
 if [ "$takenotewith" = "atom" ]; then
+
   atom -nmw --clear-window-state $cheminfichier
+  wordcount=$(wc -w $cheminfichier)
+  wordcount_int=${wordcount%/home*}
+  titlecount=$(echo "$titre" | wc -w)
+  total_words=$(expr $wordcount_int - $titlecount)
+  if [[ $total_words -le 9 ]]; then cd $notesdir rm $nomfichier;  echo "no note taken"; exit 1; fi
 else
     $takenotewith
+    wordcount=$(wc -w $cheminfichier)
+    wordcount_int=${wordcount%/home*}
+    titlecount=$(echo "$titre" | wc -w)
+    total_words=$(expr $wordcount_int - $titlecount)
+  if [[ $total_words -le 9 ]]; then cd $notesdir rm $nomfichier;  echo "no note taken"; exit 1; fi
 fi
+
 cat << EOF
 
                         OK!
