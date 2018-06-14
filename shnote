@@ -1,6 +1,6 @@
 #! /bin/bash
 # shnote by Philippe Benoist
-# www.shantee.com
+# www.shantee.com shnote v1.1
 ################################################################################
 
 ## a couple of parameters you could change according to your needs
@@ -38,24 +38,39 @@ show_howmany(){
 
 }
 do_help(){
-  echo -e "shnote v1.0 : Take note from the terminal\n"
+  echo -e "shnote v1.1 : Take note from the terminal\n"
   echo -e "Usage : note [MY NOTE TITLE]\n"
-  echo -e "\noptions:\n\t --help : display this help\n\t --list : list all saved notes\n\t --count : count all saved notes \n"
+  echo -e "\noptions:\n\t --help : display this help\n\t --list : list all saved notes\n\t --count : count all saved notes \n\t --csv : export all notes in a csv file to /home/user_name\n"
 }
+do_csv() {
 
+  echo "Title | Date | Text | Tags" > $notesdir/shnote-$(date +%d-%B-%y).csv
+  cd $notesdir
+  cat *.* >> shnote-$(date +%d-%B-%y).csv
+  sed -i s/"--------------------------------------------------------------------------------"/""/g shnote-$(date +%d-%B-%y).csv &&
+  sed -i s/"Date :"/" | "/g shnote-$(date +%d-%B-%y).csv &&
+  sed -i s/"________________________________________________________________________________"/" | "/g shnote-$(date +%d-%B-%y).csv &&
+  sed -i s/"................................................................................"/" | "/g shnote-$(date +%d-%B-%y).csv &&
+  sed -i s/"Tags :"/" tag 12384651t"/g shnote-$(date +%d-%B-%y).csv &&
+  sed -i ':a;N;$!ba;s/\n/ /g' shnote-$(date +%d-%B-%y).csv &&
+  sed -i s/"12384651t"/"\n"/g shnote-$(date +%d-%B-%y).csv &&
+  sed -i s/"Title | Date | Text | Tags"/"Title | Date | Text | Tags \n"/g shnote-$(date +%d-%B-%y).csv
+  mv shnote-$(date +%d-%B-%y).csv ~/shnote-$(date +%d-%B-%y).csv
+   echo -e "\n\t All your notes have been saved to your home folder in a CSV file shnote-DATE.csv\n"
+}
 do_note(){
   cd $notesdir
     echo -e "\n new note : "$cheminfichier
     touch $cheminfichier
-    ligne "="
+    ligne "-"
     echo -e "\n $titre" >> $cheminfichier
     echo -e "\n Date : $(date +%d-%B-%y)" >> $cheminfichier
-    ligne "="
+    ligne "_"
 
     echo -e "\n\n\n\n\n\n" >> $cheminfichier
     ligne "."
     echo -e "\nTags :" >> $cheminfichier
-    ligne "."
+
     echo -e "\n" >> $cheminfichier
 # tips : if you want to use atom to edit your notes you can use this command  followed by
 # $cheminfichier :
@@ -100,6 +115,8 @@ case "$1" in
  exit 1;
  ;;
  --count) show_howmany
+ ;;
+ --csv) do_csv
  ;;
  "") do_help
  ;;
