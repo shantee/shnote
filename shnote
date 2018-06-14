@@ -6,6 +6,7 @@
 ## a couple of parameters you could change according to your needs
 #the name of your favorite text editor
 takenotewith="atom"
+
 #path of the directory in which your notes will be saved
 #no trailing slash at the end
 notesdir="$HOME/.shnote"
@@ -44,19 +45,19 @@ do_help(){
 }
 do_csv() {
 
-  echo "Title | Date | Text | Tags" > $notesdir/shnote-$(date +%d-%B-%y).csv
+  echo "Title | Date |�Text | Tags" > $notesdir/shnote-$extension.csv
   cd $notesdir
-  cat *.* >> shnote-$(date +%d-%B-%y).csv
-  sed -i s/"--------------------------------------------------------------------------------"/""/g shnote-$(date +%d-%B-%y).csv &&
-  sed -i s/"Date :"/" | "/g shnote-$(date +%d-%B-%y).csv &&
-  sed -i s/"________________________________________________________________________________"/" | "/g shnote-$(date +%d-%B-%y).csv &&
-  sed -i s/"................................................................................"/" | "/g shnote-$(date +%d-%B-%y).csv &&
-  sed -i s/"Tags :"/" tag 12384651t"/g shnote-$(date +%d-%B-%y).csv &&
-  sed -i ':a;N;$!ba;s/\n/ /g' shnote-$(date +%d-%B-%y).csv &&
-  sed -i s/"12384651t"/"\n"/g shnote-$(date +%d-%B-%y).csv &&
-  sed -i s/"Title | Date | Text | Tags"/"Title | Date | Text | Tags \n"/g shnote-$(date +%d-%B-%y).csv
-  mv shnote-$(date +%d-%B-%y).csv ~/shnote-$(date +%d-%B-%y).csv
-   echo -e "\n\t All your notes have been saved to your home folder in a CSV file shnote-DATE.csv\n"
+  cat *.* >> shnote-$extension.csv
+  sed -i s/"--------------------------------------------------------------------------------"/""/g shnote-$extension.csv &&
+  sed -i s/"Date :"/" | "/g shnote-$extension.csv &&
+  sed -i s/"________________________________________________________________________________"/" | "/g shnote-$extension.csv &&
+  sed -i s/"................................................................................"/" | "/g shnote-$extension.csv &&
+  sed -i s/"Tags :"/" tag 12384651t"/g shnote-$extension.csv &&
+  sed -i ':a;N;$!ba;s/\n/ /g' shnote-$extension.csv &&
+  sed -i s/"12384651t"/"\n"/g shnote-$extension.csv &&
+  sed -i s/"Title | Date | Text | Tags"/"Title | Date | Text | Tags \n"/g shnote-$extension.csv
+  mv shnote-$extension.csv ~/shnote-$extension.csv
+   echo -e "\n\t All your notes have been saved to $HOME in a CSV file shnote-$extension.csv\n"
 }
 do_note(){
   cd $notesdir
