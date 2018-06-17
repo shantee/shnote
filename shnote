@@ -5,7 +5,7 @@
 
 ## a couple of parameters you could change according to your needs
 #the name of your favorite text editor
-takenotewith="atom"
+takenotewith="nano"
 
 #path of the directory in which your notes will be saved
 #no trailing slash at the end
@@ -45,7 +45,7 @@ do_help(){
 }
 do_csv() {
 
-  echo "Title | Date | Text | Tags" > $notesdir/shnote-$extension.csv
+  echo "Title | Date |Â Text | Tags" > $notesdir/shnote-$extension.csv
   cd $notesdir
   cat *.* >> shnote-$extension.csv
   sed -i s/"--------------------------------------------------------------------------------"/""/g shnote-$extension.csv &&
@@ -55,7 +55,7 @@ do_csv() {
   sed -i '/Tags .*/a 12384651t' shnote-$extension.csv &&
   sed -i ':a;N;$!ba;s/\n/ /g' shnote-$extension.csv &&
   sed -i s/"12384651t"/"  \n"/g shnote-$extension.csv &&
-  sed -i s/"Title | Date | Text | Tags"/"Title | Date | Text | Tags \n"/g shnote-$extension.csv
+  sed -i s/"Title | Date |Â Text | Tags"/"Title | Date |Â Text | Tags \n"/g shnote-$extension.csv
   mv shnote-$extension.csv ~/shnote-$extension.csv
    echo -e "\n\t All your notes have been saved to $HOME in a CSV file shnote-$extension.csv\n"
 }
@@ -85,7 +85,7 @@ if [ "$takenotewith" = "atom" ]; then
   total_words=$(expr $wordcount_int - $titlecount)
   if [[ $total_words -le 9 ]]; then cd $notesdir rm $nomfichier;  echo "no note taken"; exit 1; fi
 else
-    $takenotewith
+    $takenotewith $cheminfichier
     wordcount=$(wc -w $cheminfichier)
     wordcount_int=${wordcount%/home*}
     titlecount=$(echo "$titre" | wc -w)
