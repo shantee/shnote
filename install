@@ -1,6 +1,7 @@
+#!/bin/bash
 echo "your administrator password will be ask to copy shnote script to you /bin folder\n"
 sudo cp -u shnote /bin/shnote
-echo -e  "shnote has been copied to /bin/shnote\n"
-echo -e  "now you can simply call the script and take a note\n"
-echo -e  "by typing for exemple shnote balblabla my note\n"
+echo -e  "shnote has been installed in /bin/shnote\n"
+echo -e  "usage :\n"
+echo -e  "shnote My new cool idea\n"
 echo -e "for help you can type shnote --help"
